@@ -67,10 +67,11 @@ public class TratamientoDatos {
 		}
 		index = 1;
 		double T;
+		System.out.println("indice\tcompound_a\tcompound_b\tvalue");
 		for(int i = 0; i < values.size(); i++)
 			for(int j = i + 1; j < values.size(); j++) {
 				T = T(values.get(i), values.get(j));
-				System.out.printf("%s%16s%16s\t%.2f\n", index++, keysList.get(i), keysList.get(j), T);
+				System.out.printf("%-8s%s%16s\t%.2f\n", index++, keysList.get(i), keysList.get(j), T);
 			}
 	}
 	
