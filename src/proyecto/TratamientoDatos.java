@@ -15,6 +15,11 @@ public class TratamientoDatos {
 		test(map);
 	}
 	
+	/**
+	 * Llena una lista con los HashMaps que contienen los caracteres y su conteo, esto para cada elemento.
+	 * este metodo solo lo hice para hacer pruebas.
+	 * @param map HashMap con las formulas limpias.
+	 */
 	private void crearMapa(HashMap<String, String> map) {
 		Set<String> keys = map.keySet();
 		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
@@ -42,7 +47,10 @@ public class TratamientoDatos {
 			System.out.println();
 		}
 	}
-	
+	/**
+	 * Obtiene los valores necesarios para enviar a la funcion T a partir del HashMap de los compuestos.
+	 * @param map HashMap con las formulas limpias.
+	 */
 	private void test(HashMap<String, String> map) {
 		Set<String> keys = map.keySet();
 		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
@@ -63,6 +71,11 @@ public class TratamientoDatos {
 			}
 	}
 	
+	/**
+	 * Calcula el coeficiente Jaccard/Tanimoto.
+	 * @param a Formula quimica del compuesto a.
+	 * @param b Formula quimica del compuesto b.
+	 */
 	private void T(String a, String b) {
 		char[] compuestoA = a.toCharArray();
 		char[] compuestoB = b.toCharArray();
@@ -75,6 +88,11 @@ public class TratamientoDatos {
 		mostrarMapa(mapaA);
 	}
 
+	/**
+	 * Crea un HashMap con los elementos encontrados en la formula quimica como clave y su frecuencia como valor.
+	 * @param compuesto Lista con todos los elementos de la formula quimica.
+	 * @return HashMap de los elementos y su frecuencia.
+	 */
 	private HashMap<Character, Integer> sacarCaracteres(char[] compuesto) {
 		HashMap<Character, Integer> charMap = new HashMap<Character, Integer>();
 		for(char l : compuesto) {
@@ -89,6 +107,11 @@ public class TratamientoDatos {
 		return charMap;
 	}
 	
+	/**
+	 * Calcula el numero de elementos en el compuesto.
+	 * @param map HashMap con los elementos de la formula quimica del compuesto.
+	 * @return Numero de elementos del compuesto.
+	 */
 	private int numeroElementos(HashMap<Character, Integer> map) {
 		Set<Character> keys = map.keySet();
 		TreeSet<Character> sortedKeys = new TreeSet<Character>(keys);
@@ -101,6 +124,12 @@ public class TratamientoDatos {
 		return N;
 	}
 	
+	/**
+	 * Calcula el numero de elementos comunes entre los compuesto a y b.
+	 * @param mapA HashMap con los elementos de la formula quimica del compuesto a.
+	 * @param mapB HashMap con los elementos de la formula quimica del compuesto b.
+	 * @return Numero de elementos comunes entre los compuesto a y b.
+	 */
 	private int numeroElementosComunes(HashMap<Character, Integer> mapA, HashMap<Character, Integer> mapB) {
 		Set<Character> keysA = mapA.keySet();
 		TreeSet<Character> sortedKeysA = new TreeSet<Character>(keysA);
