@@ -11,7 +11,7 @@ public class TratamientoDatos {
 	
 	public TratamientoDatos(HashMap<String, String> map) {
 		valores = new ArrayList<HashMap<Character, Integer>>();
-		crearMapa(map);
+		//crearMapa(map);
 		test(map);
 	}
 	
@@ -54,20 +54,23 @@ public class TratamientoDatos {
 	private void test(HashMap<String, String> map) {
 		Set<String> keys = map.keySet();
 		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
+		ArrayList<String> keysList = new ArrayList<String>();
 		ArrayList<String> values = new ArrayList<String>();
 		String[] formulas = new String[keys.size()];
 		char[] elementos;
 		int index = 0;
 		for(String lines : sortedKeys) {
+			keysList.add(lines);
 			values.add(map.get(lines));
-			System.out.println(values.get(index));
+			//System.out.println(values.get(index));
 			index++;
 		}
 		index = 1;
+		double T;
 		for(int i = 0; i < values.size(); i++)
 			for(int j = i + 1; j < values.size(); j++) {
-				T(values.get(i), values.get(j));
-				System.out.println(index++ + "\t1 => " + values.get(i) + "\t2 => " + values.get(j));
+				T = T(values.get(i), values.get(j));
+				System.out.printf("%s%16s%16s\t%.2f\n", index++, keysList.get(i), keysList.get(j), T);
 			}
 	}
 	
@@ -76,7 +79,7 @@ public class TratamientoDatos {
 	 * @param a Formula quimica del compuesto a.
 	 * @param b Formula quimica del compuesto b.
 	 */
-	private void T(String a, String b) {
+	private double T(String a, String b) {
 		char[] compuestoA = a.toCharArray();
 		char[] compuestoB = b.toCharArray();
 		HashMap<Character, Integer> mapaA = sacarCaracteres(compuestoA);
@@ -86,8 +89,9 @@ public class TratamientoDatos {
 		double Nc = numeroElementosComunes(mapaA, mapaB);
 		double T = Nc/(Na + Nb - Nc);
 		String formattedString = String.format("%.02f", T);
-		System.out.println("Na = " + Na + "\tNb = " + Nb + "\tNc = " + Nc + "\tT = " + formattedString);
-		mostrarMapa(mapaA);
+		//System.out.println("Na = " + Na + "\tNb = " + Nb + "\tNc = " + Nc + "\tT = " + formattedString);
+		//mostrarMapa(mapaA);
+		return T;
 	}
 
 	/**

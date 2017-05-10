@@ -29,9 +29,9 @@ public class Formatear {
 			String[] tokens = leerArchivo.get(i).split("\t");
 			myMap.put(tokens[0], tokens[1]);
 		}
-		mostrarMapa(myMap);
+		//mostrarMapa(myMap);
 		limpiarCadena(myMap);
-		mostrarMapa(myMap);
+		//mostrarMapa(myMap);
 		p = new TratamientoDatos(myMap);
 	}
 	
@@ -42,16 +42,16 @@ public class Formatear {
 	private void limpiarCadena(HashMap<String, String> map) {
 		Set<String> keys = map.keySet();
 		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
-		String formula, formulaLimpia = "";
+		String formula, formulaLimpia;
 		char[] elementos;
 		for(String key : sortedKeys) {
+			formulaLimpia = "";
 			formula = map.get(key);
 			elementos = formula.toCharArray();
 			for(char l : elementos)
 				if(String.valueOf(l).matches("[a-zA-Z@]"))
 					formulaLimpia += l;
 			myMap.put(key, formulaLimpia);
-			formulaLimpia = "";
 		}
 	}
 
