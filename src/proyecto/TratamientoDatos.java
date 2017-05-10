@@ -81,10 +81,12 @@ public class TratamientoDatos {
 		char[] compuestoB = b.toCharArray();
 		HashMap<Character, Integer> mapaA = sacarCaracteres(compuestoA);
 		HashMap<Character, Integer> mapaB = sacarCaracteres(compuestoB);
-		int Na = numeroElementos(mapaA);
-		int Nb = numeroElementos(mapaB);
-		int Nc = numeroElementosComunes(mapaA, mapaB);
-		System.out.println("Na = " + Na + "\tNb = " + Nb);
+		double Na = numeroElementos(mapaA);
+		double Nb = numeroElementos(mapaB);
+		double Nc = numeroElementosComunes(mapaA, mapaB);
+		double T = Nc/(Na + Nb - Nc);
+		String formattedString = String.format("%.02f", T);
+		System.out.println("Na = " + Na + "\tNb = " + Nb + "\tNc = " + Nc + "\tT = " + formattedString);
 		mostrarMapa(mapaA);
 	}
 
@@ -135,8 +137,30 @@ public class TratamientoDatos {
 		TreeSet<Character> sortedKeysA = new TreeSet<Character>(keysA);
 		Set<Character> keysB = mapB.keySet();
 		TreeSet<Character> sortedKeysB = new TreeSet<Character>(keysB);
-		
-		return 0;
+		HashMap<Character, Integer> charMap = new HashMap<Character, Integer>();
+		int contador, menor;
+		for(char linesA : keysA) {
+			contador = 0;
+			for(char linesB : keysB) {
+				if(linesA == linesB) {
+					menor = obtenerMenor(mapA.get(linesA), mapB.get(linesB));
+					charMap.put(linesA, menor);
+				}
+			}
+		}
+		return numeroElementos(charMap);
+	}
+
+	private int obtenerMenor(int x, int y) {
+		int z = 0;
+		if(x == y)
+			z = x;
+		else
+			if(x > y)
+				z = y;
+			else
+				z = x;
+		return z;
 	}
 
 	private void mostrarMapa(HashMap<Character, Integer> map) {
