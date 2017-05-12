@@ -27,7 +27,7 @@ public class Formatear {
 		myMap = new HashMap<String, String>();
 		for(int i = 1; i < leerArchivo.size(); i++) {
 			String[] tokens = leerArchivo.get(i).split("\t");
-			myMap.put(tokens[1], tokens[3]);
+			myMap.put(tokens[0], tokens[1]);
 		}
 		//mostrarMapa(myMap);
 		limpiarCadena(myMap);

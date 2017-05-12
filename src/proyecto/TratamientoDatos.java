@@ -1,8 +1,11 @@
 package proyecto;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -67,12 +70,27 @@ public class TratamientoDatos {
 		}
 		index = 1;
 		double T;
+		File mySolutions = new File(System.getProperty("user.dir") + "\\src\\archivos\\mySolutions.tsv");
+		try {
+			FileWriter writer = new FileWriter(mySolutions);
+			PrintWriter write = new PrintWriter(writer);
+			write.println("indice\tcompound_a\t\tcompound_b\t\tvalue");
+			for(int i = 0; i < values.size(); i++)
+				for(int j = i + 1; j < values.size(); j++) {
+					T = T(values.get(i), values.get(j));
+					write.printf("%-8s%-16s%-16s%.2f\n", index++, keysList.get(i), keysList.get(j), T);
+				}
+			write.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		/*index = 1;
 		System.out.println("indice\tcompound_a\tcompound_b\tvalue");
 		for(int i = 0; i < values.size(); i++)
 			for(int j = i + 1; j < values.size(); j++) {
 				T = T(values.get(i), values.get(j));
-				System.out.printf("%-8s%s%16s\t%.2f\n", index++, keysList.get(i), keysList.get(j), T);
-			}
+				System.out.printf("%-8s%-16s%-16s%.2f\n", index++, keysList.get(i), keysList.get(j), T);
+			}*/
 	}
 	
 	/**
@@ -89,8 +107,7 @@ public class TratamientoDatos {
 		double Nb = numeroElementos(mapaB);
 		double Nc = numeroElementosComunes(mapaA, mapaB);
 		double T = Nc/(Na + Nb - Nc);
-		String formattedString = String.format("%.02f", T);
-		//System.out.println("Na = " + Na + "\tNb = " + Nb + "\tNc = " + Nc + "\tT = " + formattedString);
+		//System.out.printf("Na = %-6sNb = %-6sNc = %-6sT = %.2f\n", Na, Nb, Nc, T);
 		//mostrarMapa(mapaA);
 		return T;
 	}
@@ -143,9 +160,8 @@ public class TratamientoDatos {
 		Set<Character> keysB = mapB.keySet();
 		TreeSet<Character> sortedKeysB = new TreeSet<Character>(keysB);
 		HashMap<Character, Integer> charMap = new HashMap<Character, Integer>();
-		int contador, menor;
+		int menor;
 		for(char linesA : keysA) {
-			contador = 0;
 			for(char linesB : keysB) {
 				if(linesA == linesB) {
 					menor = obtenerMenor(mapA.get(linesA), mapB.get(linesB));
@@ -156,6 +172,12 @@ public class TratamientoDatos {
 		return numeroElementos(charMap);
 	}
 
+	/**
+	 * Encuentra el menor entre dos numeros, si son iguales devuelve el primer valor.
+	 * @param x Primer valor.
+	 * @param y Segundo valor.
+	 * @return Menor valor.
+	 */
 	private int obtenerMenor(int x, int y) {
 		int z = 0;
 		if(x == y)
