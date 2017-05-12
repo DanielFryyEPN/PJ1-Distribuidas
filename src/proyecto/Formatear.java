@@ -9,9 +9,11 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class Formatear {
-	private HashMap<String, String> myMap;
+	private static HashMap<String, String> myMap;
 	@SuppressWarnings("unused")
 	private TratamientoDatos p;
+	
+	FormatearThread t1 = new FormatearThread(leerArchivo, map)
 	
 	/**
 	 * Crea un HashMap a partir de un archivo.
@@ -24,17 +26,23 @@ public class Formatear {
 		} catch (IOException e) {
 			System.err.println("Error al leer el archivo");
 		}
+		
 		myMap = new HashMap<String, String>();
-		for(int i = 1; i < leerArchivo.size(); i++) {
-			String[] tokens = leerArchivo.get(i).split("\t");
-			myMap.put(tokens[0], tokens[1]);
-		}
+		
+		llenarMapa(leerArchivo);
 		//mostrarMapa(myMap);
 		limpiarCadena(myMap);
 		//mostrarMapa(myMap);
 		p = new TratamientoDatos(myMap);
 	}
 	
+	private static synchronized void llenarMapa(ArrayList<String> leerArchivo) {
+		for(int i = 1; i < leerArchivo.size(); i++) {
+			String[] tokens = leerArchivo.get(i).split("\t");
+			myMap.put(tokens[0], tokens[1]);
+		}
+	}
+
 	/**
 	 * Elimina los caracteres especiales de las formulas.
 	 * @param map HashMap de donde se obtienen las formulas.
