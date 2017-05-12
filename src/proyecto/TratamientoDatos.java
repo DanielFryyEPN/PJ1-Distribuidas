@@ -37,7 +37,9 @@ public class TratamientoDatos {
 		}
 		index = 1;
 		double T;
-		File mySolutions = new File(System.getProperty("user.dir") + "\\src\\archivos\\mySolutions.tsv");
+		String path1 = "C:\\Users\\danie\\Downloads\\Documents\\mySolutions.tsv";
+		String path0 = System.getProperty("user.dir") + "\\src\\archivos\\mySolutions.tsv";
+		File mySolutions = new File(path1);
 		try {
 			FileWriter writer = new FileWriter(mySolutions);
 			PrintWriter write = new PrintWriter(writer);

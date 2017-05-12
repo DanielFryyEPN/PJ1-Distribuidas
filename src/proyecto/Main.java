@@ -12,22 +12,13 @@ public class Main {
 		double start = new Date().getTime();
 		Formatear p = new Formatear();
 		try {
-			p.leerArchivo("\\src\\archivos\\chemicals.tsv");
+			p.leerArchivo("\\src\\archivos\\ZINC_chemicals.tsv");
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		double end = new Date().getTime();
 		double time = (end - start)/1000;
-		File file = new File(System.getProperty("user.dir") + "\\src\\archivos\\time.txt");
-		try {
-			FileWriter writer = new FileWriter(file);
-			PrintWriter write = new PrintWriter(writer);
-			write.print(time);
-			write.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		System.out.println(time);
 	}
 }

@@ -20,7 +20,7 @@ public class FormatearThread implements Runnable{
 	private synchronized void llenarMapa(ArrayList<String> leerArchivo) {
 		for(int i = indice; i < leerArchivo.size(); i+=2) {
 			String[] tokens = leerArchivo.get(i).split("\t");
-			myMap.put(tokens[0], tokens[1]);
+			myMap.put(tokens[1], tokens[3]);
 		}
 	}
 }
