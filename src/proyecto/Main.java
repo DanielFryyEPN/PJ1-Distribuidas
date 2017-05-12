@@ -11,7 +11,12 @@ public class Main {
 	public static void main(String[] args) {
 		double start = new Date().getTime();
 		Formatear p = new Formatear();
-		p.leerArchivo("\\src\\archivos\\chemicals.tsv");
+		try {
+			p.leerArchivo("\\src\\archivos\\chemicals.tsv");
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		double end = new Date().getTime();
 		double time = (end - start)/1000;
 		File file = new File(System.getProperty("user.dir") + "\\src\\archivos\\time.txt");

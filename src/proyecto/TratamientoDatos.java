@@ -14,42 +14,9 @@ public class TratamientoDatos {
 	
 	public TratamientoDatos(HashMap<String, String> map) {
 		valores = new ArrayList<HashMap<Character, Integer>>();
-		//crearMapa(map);
 		test(map);
 	}
 	
-	/**
-	 * Llena una lista con los HashMaps que contienen los caracteres y su conteo, esto para cada elemento.
-	 * este metodo solo lo hice para hacer pruebas.
-	 * @param map HashMap con las formulas limpias.
-	 */
-	private void crearMapa(HashMap<String, String> map) {
-		Set<String> keys = map.keySet();
-		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
-		String formula;
-		char[] elementos;
-		HashMap<Character, Integer> charMap;
-		for(String key : sortedKeys) {
-			charMap = new HashMap<Character, Integer>();
-			formula = map.get(key);
-			elementos = formula.toCharArray();
-			for(char l : elementos) {
-				if(charMap.containsKey(l)) {
-					int contador = charMap.get(l);
-					charMap.put(l, contador + 1);
-				} else
-					charMap.put(l, 1);
-				if(charMap.containsKey('@'))
-					charMap.put('@', 1);
-			}
-			valores.add(charMap);
-		}
-		
-		for(HashMap<Character, Integer> lines : valores) {
-			mostrarMapa(lines);
-			System.out.println();
-		}
-	}
 	/**
 	 * Obtiene los valores necesarios para enviar a la funcion T a partir del HashMap de los compuestos.
 	 * @param map HashMap con las formulas limpias.

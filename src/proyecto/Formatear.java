@@ -9,17 +9,15 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class Formatear {
-	private static HashMap<String, String> myMap;
+	public static HashMap<String, String> myMap = new HashMap<String, String>();;
 	@SuppressWarnings("unused")
 	private TratamientoDatos p;
-	
-	FormatearThread t1 = new FormatearThread(leerArchivo, map)
 	
 	/**
 	 * Crea un HashMap a partir de un archivo.
 	 * @param path Ruta del archivo.
 	 */
-	public void leerArchivo(String path) {
+	public void leerArchivo(String path) throws InterruptedException{
 		ArrayList<String> leerArchivo = new ArrayList<String>();
 		try {
 			leerArchivo = (ArrayList<String>) Files.readAllLines(Paths.get(System.getProperty("user.dir") + path));
@@ -27,20 +25,27 @@ public class Formatear {
 			System.err.println("Error al leer el archivo");
 		}
 		
-		myMap = new HashMap<String, String>();
+		Thread t1Archivo = new Thread(new FormatearThread(0, leerArchivo));
+		Thread t2Archivo = new Thread(new FormatearThread(1, leerArchivo));
 		
-		llenarMapa(leerArchivo);
+		t1Archivo.start();
+		t2Archivo.start();
+		t1Archivo.join();
+		t2Archivo.join();
+		
+		/*Thread t1Limpiar = new Thread(new LimpiarCadena());
+		Thread t2Limpiar = new Thread(new LimpiarCadena());
+		
+		t1Limpiar.start();
+		t2Limpiar.start();
+		
+		t1Limpiar.join();
+		t2Limpiar.join();*/
+		
 		//mostrarMapa(myMap);
 		limpiarCadena(myMap);
 		//mostrarMapa(myMap);
 		p = new TratamientoDatos(myMap);
-	}
-	
-	private static synchronized void llenarMapa(ArrayList<String> leerArchivo) {
-		for(int i = 1; i < leerArchivo.size(); i++) {
-			String[] tokens = leerArchivo.get(i).split("\t");
-			myMap.put(tokens[0], tokens[1]);
-		}
 	}
 
 	/**
