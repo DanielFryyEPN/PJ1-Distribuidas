@@ -78,7 +78,8 @@ public class TratamientoDatos {
 			for(int i = 0; i < values.size(); i++)
 				for(int j = i + 1; j < values.size(); j++) {
 					T = T(values.get(i), values.get(j));
-					write.printf("%-8s%-16s%-16s%.2f\n", index++, keysList.get(i), keysList.get(j), T);
+					if (T>=0.5)
+						write.printf("%-8s%-16s%-16s%.2f\n", index++, keysList.get(i), keysList.get(j), T);
 				}
 			write.close();
 		} catch (IOException e) {
