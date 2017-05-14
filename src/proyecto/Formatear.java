@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class Formatear {
-	public static HashMap<String, String> myMap = new HashMap<String, String>();;
+	public static HashMap<String, String> myMap = new HashMap<String, String>();
 	@SuppressWarnings("unused")
 	private TratamientoDatos p;
 	
@@ -25,8 +25,8 @@ public class Formatear {
 			System.err.println("Error al leer el archivo");
 		}
 		
-		Thread t1Archivo = new Thread(new FormatearThread(0, leerArchivo));
-		Thread t2Archivo = new Thread(new FormatearThread(1, leerArchivo));
+		/*Thread t1Archivo = new Thread(new FormatearThread(1, leerArchivo));
+		Thread t2Archivo = new Thread(new FormatearThread(2, leerArchivo));
 		
 		t1Archivo.start();
 		t2Archivo.start();
@@ -42,10 +42,19 @@ public class Formatear {
 		t1Limpiar.join();
 		t2Limpiar.join();*/
 		
+		llenarMapa(leerArchivo);
 		//mostrarMapa(myMap);
 		limpiarCadena(myMap);
-		//mostrarMapa(myMap);
+		mostrarMapa(myMap);
 		p = new TratamientoDatos(myMap);
+	}
+	
+	private void llenarMapa(ArrayList<String> leerArchivo) {
+		String[] tokens;
+		for(int i = 1; i < leerArchivo.size(); i++) {
+			tokens = leerArchivo.get(i).split("\t");
+			myMap.put(tokens[0], tokens[1]);
+		}
 	}
 
 	/**

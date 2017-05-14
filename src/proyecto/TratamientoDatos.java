@@ -6,11 +6,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class TratamientoDatos {
 	private ArrayList<HashMap<Character, Integer>> valores;
+	private HashMap<Character, Integer> mapaA, mapaB;
+	private double Na, Nb, Nc, T;
 	
 	public TratamientoDatos(HashMap<String, String> map) {
 		valores = new ArrayList<HashMap<Character, Integer>>();
@@ -26,41 +29,28 @@ public class TratamientoDatos {
 		TreeSet<String> sortedKeys = new TreeSet<String>(keys);
 		ArrayList<String> keysList = new ArrayList<String>();
 		ArrayList<String> values = new ArrayList<String>();
-		String[] formulas = new String[keys.size()];
-		char[] elementos;
-		int index = 0;
 		for(String lines : sortedKeys) {
 			keysList.add(lines);
 			values.add(map.get(lines));
-			//System.out.println(values.get(index));
-			index++;
 		}
-		index = 1;
-		double T;
+		int index = 1;
 		String path1 = "C:\\Users\\danie\\Downloads\\Documents\\mySolutions.tsv";
 		String path0 = System.getProperty("user.dir") + "\\src\\archivos\\mySolutions.tsv";
-		File mySolutions = new File(path1);
+		File mySolutions = new File(path0);
 		try {
 			FileWriter writer = new FileWriter(mySolutions);
 			PrintWriter write = new PrintWriter(writer);
-			write.println("indice\tcompound_a\t\tcompound_b\t\tvalue");
+			write.printf("%-10s%-16s%-16s%s\n", "index", "compound_a", "compound_b", "value");
 			for(int i = 0; i < values.size(); i++)
 				for(int j = i + 1; j < values.size(); j++) {
 					T = T(values.get(i), values.get(j));
 					if (T>=0.5)
-						write.printf("%-8s%-16s%-16s%.2f\n", index++, keysList.get(i), keysList.get(j), T);
+						write.printf("%-10s%-16s%-16s%.2f\n", index++, keysList.get(i), keysList.get(j), T);
 				}
 			write.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println("Error al escribir el archivo");;
 		}
-		/*index = 1;
-		System.out.println("indice\tcompound_a\tcompound_b\tvalue");
-		for(int i = 0; i < values.size(); i++)
-			for(int j = i + 1; j < values.size(); j++) {
-				T = T(values.get(i), values.get(j));
-				System.out.printf("%-8s%-16s%-16s%.2f\n", index++, keysList.get(i), keysList.get(j), T);
-			}*/
 	}
 	
 	/**
@@ -71,12 +61,12 @@ public class TratamientoDatos {
 	private double T(String a, String b) {
 		char[] compuestoA = a.toCharArray();
 		char[] compuestoB = b.toCharArray();
-		HashMap<Character, Integer> mapaA = sacarCaracteres(compuestoA);
-		HashMap<Character, Integer> mapaB = sacarCaracteres(compuestoB);
-		double Na = numeroElementos(mapaA);
-		double Nb = numeroElementos(mapaB);
-		double Nc = numeroElementosComunes(mapaA, mapaB);
-		double T = Nc/(Na + Nb - Nc);
+		mapaA = sacarCaracteres(compuestoA);
+		mapaB = sacarCaracteres(compuestoB);
+		Na = numeroElementos(mapaA);
+		Nb = numeroElementos(mapaB);
+		Nc = numeroElementosComunes(mapaA, mapaB);
+		T = Nc/(Na + Nb - Nc);
 		//System.out.printf("Na = %-6sNb = %-6sNc = %-6sT = %.2f\n", Na, Nb, Nc, T);
 		//mostrarMapa(mapaA);
 		return T;
@@ -131,14 +121,12 @@ public class TratamientoDatos {
 		TreeSet<Character> sortedKeysB = new TreeSet<Character>(keysB);
 		HashMap<Character, Integer> charMap = new HashMap<Character, Integer>();
 		int menor;
-		for(char linesA : keysA) {
-			for(char linesB : keysB) {
+		for(char linesA : keysA)
+			for(char linesB : keysB)
 				if(linesA == linesB) {
 					menor = obtenerMenor(mapA.get(linesA), mapB.get(linesB));
 					charMap.put(linesA, menor);
 				}
-			}
-		}
 		return numeroElementos(charMap);
 	}
 
@@ -149,15 +137,7 @@ public class TratamientoDatos {
 	 * @return Menor valor.
 	 */
 	private int obtenerMenor(int x, int y) {
-		int z = 0;
-		if(x == y)
-			z = x;
-		else
-			if(x > y)
-				z = y;
-			else
-				z = x;
-		return z;
+		int z = 0; if(x == y) z = x; else if(x < y)	z = x; else	z = y; return z;
 	}
 
 	private void mostrarMapa(HashMap<Character, Integer> map) {

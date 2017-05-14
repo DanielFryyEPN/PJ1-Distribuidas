@@ -1,6 +1,7 @@
 package proyecto;
 
 import java.util.ArrayList;
+
 import static proyecto.Formatear.myMap;
 
 public class FormatearThread implements Runnable{
@@ -18,9 +19,17 @@ public class FormatearThread implements Runnable{
 	}
 
 	private synchronized void llenarMapa(ArrayList<String> leerArchivo) {
+		String[] tokens;
 		for(int i = indice; i < leerArchivo.size(); i+=2) {
-			String[] tokens = leerArchivo.get(i).split("\t");
-			myMap.put(tokens[1], tokens[3]);
+			tokens = leerArchivo.get(i).split("\t");
+			myMap.put(tokens[0], tokens[1]);
 		}
 	}
+	
+	/*private synchronized void llenarMapa(ArrayList<String> leerArchivo) {
+		for(int i = indice; i < leerArchivo.size(); i+=2) {
+			String[] tokens = leerArchivo.get(i).split("\t");
+			myMap.put(tokens[0], tokens[1]);
+		}
+	}*/
 }

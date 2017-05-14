@@ -1,6 +1,7 @@
 package proyecto;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Set;
 import java.util.TreeSet;
 import static proyecto.Formatear.myMap;
