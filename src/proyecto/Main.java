@@ -8,7 +8,7 @@ public class Main {
 		double start = new Date().getTime();
 		Formatear p = new Formatear();
 		try {
-			p.leerArchivo("\\src\\archivos\\chemicals.tsv");
+			p.leerArchivo("\\src\\archivos\\ZINC_chemicals.tsv");
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

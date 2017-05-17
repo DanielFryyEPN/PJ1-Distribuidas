@@ -45,7 +45,7 @@ public class Formatear {
 		llenarMapa(leerArchivo);
 		//mostrarMapa(myMap);
 		limpiarCadena(myMap);
-		mostrarMapa(myMap);
+		//mostrarMapa(myMap);
 		p = new TratamientoDatos(myMap);
 	}
 	
@@ -53,7 +53,7 @@ public class Formatear {
 		String[] tokens;
 		for(int i = 1; i < leerArchivo.size(); i++) {
 			tokens = leerArchivo.get(i).split("\t");
-			myMap.put(tokens[0], tokens[1]);
+			myMap.put(tokens[1], tokens[3]);
 		}
 	}
 

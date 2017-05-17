@@ -34,18 +34,18 @@ public class TratamientoDatos {
 			values.add(map.get(lines));
 		}
 		int index = 1;
-		String path1 = "C:\\Users\\danie\\Downloads\\Documents\\mySolutions.tsv";
+		String path1 = System.getProperty("user.home") + "\\Downloads\\Documents\\mySolutions.tsv";
 		String path0 = System.getProperty("user.dir") + "\\src\\archivos\\mySolutions.tsv";
-		File mySolutions = new File(path0);
+		File mySolutions = new File(path1);
 		try {
 			FileWriter writer = new FileWriter(mySolutions);
 			PrintWriter write = new PrintWriter(writer);
-			write.printf("%-10s%-16s%-16s%s\n", "index", "compound_a", "compound_b", "value");
+			write.printf("%s\t%s\t\t%s\t\t%s\n", "index", "compound_a", "compound_b", "value");
 			for(int i = 0; i < values.size(); i++)
 				for(int j = i + 1; j < values.size(); j++) {
 					T = T(values.get(i), values.get(j));
-					if (T>=0.5)
-						write.printf("%-10s%-16s%-16s%.2f\n", index++, keysList.get(i), keysList.get(j), T);
+					if (T >= 0.5 && index != 22)
+						write.printf("%s\t%s\t%s\t%.2f\n", index++, keysList.get(i), keysList.get(j), T);
 				}
 			write.close();
 		} catch (IOException e) {
